@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head%}
+<link rel="stylesheet" , href="{% static 'style1.css' %}">
+<style>
+  hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+  }
+
+  #frm {
+    margin-left: 35%;
+    margin-right: 35%;
+    margin-top: 4%;
+    font-size: 110%;
+  }
+
+  #name {
+    border: 2px solid grey;
+    border-radius: 5px;
+    background-color: azure;
+    padding: 5px 15px;
+  }
+
+  #name2 {
+    border: 2px solid grey;
+    border-radius: 5px;
+    background-color: azure;
+    padding: 5px 15px;
+  }
+
+  #button {
+    color: white;
+    border: 3px solid grey;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    width: 165px;
+    height: 40px;
+    padding: 0px;
+    font-family: cursive;
+    margin-left: 30%;
+  }
+
+  body {
+    color: honeydew;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .container {
+    padding: 16px;
+  }
+
+  /* Full-width input fields */
+  .container input {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+  }
+
+  .container input[type=text]:focus,
+  input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+
+  /* Overwrite default styles of hr */
+  hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+  }
+
+  /* Set a style for the submit button */
+  .registerbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+  }
+
+  .registerbtn:hover {
+    opacity: 1;
+  }
+
+  #para {
+    color: #C20521;
+    text-align: center;
+  }
+</style>
+{% endblock%}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+<ul>
+  <li><a href="/">Home</a></li>
+  <li><a href="{% url 'contact' %}">Contact Us</a></li>
+  <li><a href="{% url 'login' %}">Login</a></li>
+  <li><a href="{% url 'register' %}">Register</a></li>
+</ul>
+<form method="post" action="">
+  {% csrf_token%}
+  <div class="container">
+    <h1>Login</h1>
+    <p>Please fill in this form to login an account.</p>
+    <hr>
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="eml" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="pas" required>
+    <button type="submit" class="registerbtn">Login</button>
+  </div>
+  <!-- </form>
+<form id="frm" method="post" action="">
+  {% csrf_token %}
+  <h1 style="font-family:comic sans ms;"> Welcome</h1>
+  <p> Enter username and password for login!</p> <br>
+  <p style="font-size:95%">Email<input id="name" name="eml" size="30" type="email" placeholder="email.."></p>
+  <p style="font-size:95% ;  border-radius: 7px;">Password* <input size="30" name="pas" id="name2" type="password"
+      placeholder="Password.."> </p>
+  <hr>
+  <p>
+    <button id="button"><strong>Login</strong></button>
+  </p>
+  <hr id="hr1">
+
+</form> -->
+  {% if messages %}
+  {% for message in messages %}
+  <p id="para"><i> <b>{{ message }}</b></i></p>
+  {% endfor %}
+  {% endif %}
+  {% endblock %}

@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" , href="{% static 'style1.css' %}">
+<style>
+  .blog {
+    display: grid;
+    /* margin-left: 7%; */
+    grid-template-columns: 300px;
+    grid-template-rows: 40px 155px 30px 70px 50px;
+    text-align: center;
+    border-radius: 15px;
+    grid-template-areas: "title""pic""content""link";
+    background-color: #EBEDEF;
+    border: 1px solid grey;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
+    cursor: pointer;
+    height: 55vh;
+    margin: 24px;
+  }
+
+  .blog-title {
+    font-size: 20px;
+    margin-top: 8px;
+    overflow: hidden;
+
+  }
+
+  .blog-pic {
+    overflow: hidden;
+  }
+
+  .blog-pic img {
+    width: 100%;
+    height: 100%;
+    border-radius: 14px;
+  }
+
+  .blog-author {
+    margin-top: 8px;
+    font-size: 18px;
+    color: green;
+  }
+
+  .blog-content {
+    font-size: 17px;
+    overflow: hidden;
+  }
+
+  .blog-pubdate a {
+    text-decoration: none;
+    color: #207AF0;
+  }
+
+  .blog-pubdate {
+    font-size: 20px;
+  }
+
+  .cnt {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 70vh;
+    font-family: Arial, Helvetica, sans-serif;
+    /* padding: 22px; */
+    margin-top: 30px;
+  }
+
+  .blog:hover {
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
+  }
+
+  /* img {
+    width: 100%;
+  } */
+  @media screen and (max-width: 800px) {
+    .blog{
+      height: 45vh;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<ul>
+  <li><a href="/">Home</a></li>
+  <li><a href="{% url 'contact' %}">Contact Us</a></li>
+  <li><a href="{% url 'profile' %}">Profile</a></li>
+  <li><a href="{% url 'logout' %}">Logout</a></li>
+</ul>
+
+{% else %}
+<ul>
+  <li><a href="/">Home</a></li>
+  <li><a href="{% url 'contact' %}">Contact Us</a></li>
+  <li><a href="{% url 'login' %}">Login</a></li>
+  <li><a href="{% url 'register' %}">Register</a></li>
+</ul>
+{% endif %}
+
+<div class="images">
+  <img src="https://source.unsplash.com/1600x400/?books,nature" alt="...">
+  <div class="overlap">
+    <h3>About</h3>
+    <p>
+      This website covers all the basics of Web Development.<br>Here you can create your Blogs and Post them!<br>
+      Developed By Nishant using Django Framework
+    </p>
+  </div>
+</div>
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}}" role="alert">
+  {{message}}
+</div>
+{% endfor %}
+{% endif %}
+<div class="conta">
+  <h5>Create Your Blog Here!</h5>
+  <div class="bt">
+    <a href="{% url 'post' %}">
+      <button class="btn btn-danger">Create Blog </button>
+    </a>
+  </div>
+</div>
+
+<div class="cnt">
+  {% for item in c_post %}
+  <div class="blog">
+    <div class="blog-title"><b>Title: {{ item.title }}</b></div>
+    <div class="blog-pic">
+      <img src="/media/{{ item.img }}">
+    </div>
+    <div class="blog-author"><b>Author: {{ item.author.get_full_name }}</b></div>
+    <div class="blog-content">
+      <p><b>{{ item.desc }}</b><br></p>
+    </div>
+    <div class="blog-pubdate">
+      <a href="{% url 'my_post' item.id %}">Continue Reading</a>
+      <p><i>{{ item.pubdate }}</i><br></p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

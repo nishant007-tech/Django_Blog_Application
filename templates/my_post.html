@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+ {% block head %}
+ <style>
+ .btn {
+  background-color: grey;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: Red;
+}
+     .cont{
+     margin-left:20%;
+     margin-right:20%;
+     }
+ </style>
+ {% endblock %}
+
+ {% block title %}
+ my_post
+ {% endblock %}
+
+ {% block content %}
+
+  <div class="cont">
+      <a class="content-section"></a>
+        <h2 class="blog-post-title">{{ m_post.title }}</h2>
+          <div class="fb-like" data-href="http://127.0.0.1:8000/my_post/{{m_post.id}}" data-width="" data-layout="standard" data-action="like" data-size="large" data-share="true"></div>
+          <p class="blog-post-title mb-0">Author: {{ m_post.author.get_full_name }}</p>
+          <p class="blog-post-meta">{{ m_post.pubdate }} </p>
+            <hr>
+          {% if user.is_authenticated %}
+      <p> <i style="color:red">Delete Post</i><a href="{% url 'post_remove' m_post.id %}" ><button class="btn"><i class="fa fa-trash"></i></button></a></p>
+          {% endif %}
+        <p>{{ m_post.desc }}</p>
+          <div class="fb-comments" data-href="http://127.0.0.1:8000/my_post/{{m_post.id}}" data-numposts="5" data-width=""></div>
+      </div>
+  </div>
+ {% endblock %}
