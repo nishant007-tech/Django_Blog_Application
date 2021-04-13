@@ -43,6 +43,7 @@
     }
     img{
         width: 100%;
+        height: 65vh;
     }
     .overlap p,h3{
         text-shadow: 5px 5px 5px black;
